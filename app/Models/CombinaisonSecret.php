@@ -14,7 +14,7 @@ class CombinaisonSecret extends Model
         'joueur_id',
         'combinaison',
     ];
-
+    
     public function showPartie()
     {
         return $this->belongsTo(Partie::class, 'partie_id');
