@@ -177,7 +177,7 @@
     ($partie->statut === 'en_cours' && $partie->tour_joueur_id != auth()->id())
 )
 <script>
-    setTimeout(() => location.reload(), 5000);
+    setTimeout(() => location.reload(), 1000);
 </script>
 @endif
 
