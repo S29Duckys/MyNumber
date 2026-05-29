@@ -8,20 +8,21 @@ class CombinaisonSecret extends Model
 {
     protected $table = 'combinaison_secret';
     protected $primaryKey = 'id_combinaison';
+    const UPDATED_AT = null;
 
     protected $fillable = [
         'partie_id',
         'joueur_id',
         'combinaison',
     ];
-    
-    public function showPartie()
+
+    public function partie()
     {
-        return $this->belongsTo(Partie::class, 'partie_id');
+        return $this->belongsTo(Partie::class, 'partie_id', 'id_partie');
     }
 
-    public function showJoueur()
+    public function joueur()
     {
-        return $this->belongsTo(User::class, 'joueur_id');
+        return $this->belongsTo(User::class, 'joueur_id', 'id_user');
     }
 }

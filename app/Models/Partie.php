@@ -18,33 +18,33 @@ class Partie extends Model
         'statut',
     ];
 
-    public function showCreateur()
+    public function createur()
     {
-        return $this->belongsTo(User::class, 'createur_id');
+        return $this->belongsTo(User::class, 'createur_id', 'id_user');
     }
 
-    public function showAdversaire()
+    public function adversaire()
     {
-        return $this->belongsTo(User::class, 'adversaire_id');
+        return $this->belongsTo(User::class, 'adversaire_id', 'id_user');
     }
 
-    public function showGagnant()
+    public function gagnant()
     {
-        return $this->belongsTo(User::class, 'gagnant_id');
+        return $this->belongsTo(User::class, 'gagnant_id', 'id_user');
     }
 
-    public function showTourJoueur()
+    public function tourJoueur()
     {
-        return $this->belongsTo(User::class, 'tour_joueur_id');
+        return $this->belongsTo(User::class, 'tour_joueur_id', 'id_user');
     }
 
-    public function showCombinaisons()
+    public function combinaisons()
     {
-        return $this->hasMany(CombinaisonSecret::class, 'partie_id');
+        return $this->hasMany(CombinaisonSecret::class, 'partie_id', 'id_partie');
     }
 
-    public function showPropositions()
+    public function propositions()
     {
-        return $this->hasMany(Proposition::class, 'partie_id');
+        return $this->hasMany(Proposition::class, 'partie_id', 'id_partie');
     }
 }
