@@ -15,8 +15,8 @@
             <span class="font-semibold text-lg tracking-tight">MyNumber</span>
         </div>
         <div class="flex items-center gap-3">
-            <a href="#" class="text-sm text-gray-400 hover:text-white transition">Connexion</a>
-            <a href="#" class="text-sm bg-indigo-600 hover:bg-indigo-500 transition px-4 py-2 rounded-lg font-medium">
+            <a href="{{ route('login') }}" class="text-sm text-gray-400 hover:text-white transition">Connexion</a>
+            <a href="{{ route('register') }}" class="text-sm bg-indigo-600 hover:bg-indigo-500 transition px-4 py-2 rounded-lg font-medium">
                 S'inscrire
             </a>
         </div>
@@ -40,10 +40,20 @@
 
         {{-- Actions --}}
         <div class="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
-            <a href="#"
-               class="flex-1 bg-indigo-600 hover:bg-indigo-500 transition text-white font-semibold py-3 px-6 rounded-xl text-center">
-                Créer une partie
-            </a>
+            @auth
+                <form method="POST" action="{{ route('parties.create') }}" class="flex-1">
+                    @csrf
+                    <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-500 transition text-white font-semibold py-3 px-6 rounded-xl">
+                        Créer une partie
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}"
+                   class="flex-1 bg-indigo-600 hover:bg-indigo-500 transition text-white font-semibold py-3 px-6 rounded-xl text-center">
+                    Créer une partie
+                </a>
+            @endauth
             <a href="#"
                class="flex-1 bg-gray-800 hover:bg-gray-700 transition text-white font-semibold py-3 px-6 rounded-xl text-center">
                 Rejoindre

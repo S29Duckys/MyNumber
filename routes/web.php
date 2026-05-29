@@ -5,8 +5,8 @@ use App\Http\Controllers\PartieController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home.home');
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -19,6 +19,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/parties', [PartieController::class, 'createPartie'])->name('parties.create');
     Route::get('/parties/{token}', [PartieController::class, 'showPartie'])->name('game.afficher');
+    Route::post('/parties/{token}/rejoindre', [PartieController::class, 'rejoindrePartie'])->name('parties.rejoindre');
+    Route::post('/parties/{token}/combinaison', [PartieController::class, 'soumettreCombinaison'])->name('parties.combinaison');
+    Route::post('/parties/{token}/proposer', [PartieController::class, 'soumettreProposition'])->name('parties.proposer');
 });
 
 require __DIR__.'/auth.php';
