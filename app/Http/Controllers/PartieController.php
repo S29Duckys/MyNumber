@@ -105,12 +105,16 @@ class PartieController extends Controller
             ->where('joueur_id', $adversaireId)
             ->value('combinaison');
 
-        // Calcul des chiffres corrects (correspondance exacte par position)
+        // Calcul des chiffres présents dans le secret (peu importe la position)
         $guess = $request->combinaison;
+        $secretDigits = str_split($secret);
         $chiffreCorrect = 0;
-        for ($i = 0; $i < 4; $i++) {
-            if ($guess[$i] === $secret[$i]) {
+
+        foreach (str_split($guess) as $digit) {
+            $key = array_search($digit, $secretDigits);
+            if ($key !== false) {
                 $chiffreCorrect++;
+                unset($secretDigits[$key]); // évite de compter un doublon deux fois
             }
         }
 
@@ -124,8 +128,8 @@ class PartieController extends Controller
             'chiffre_correct' => $chiffreCorrect,
         ]);
 
-        // Victoire
-        if ($chiffreCorrect === 4) {
+        // Victoire — combinaison exacte
+        if ($guess === $secret) {
             $partie->update([
                 'gagnant_id' => auth()->id(),
                 'statut'     => 'terminee',
